@@ -6,6 +6,7 @@ import com.vn.salesforceapiapp.model.Token
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -24,9 +25,9 @@ interface APIService {
         @Body postRequest: PostRequest
     ): retrofit2.Call<String>
 
+    @Headers("Content-type: application/json")
     @POST("/services/oauth2/token")
     fun getToken(
-        @Header("Content-Type") content_type: String,
        @Query("grant_type") grant_type: String,
        @Query("client_id") client_id: String,
        @Query("client_secret") client_secret: String,

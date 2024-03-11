@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vn.salesforceapiapp.adapter.RecyclerViewAdapter
 import com.vn.salesforceapiapp.api.APIService
@@ -31,13 +32,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         createToken()
+        println("Token: $token")
         initRecyclerView()
-        getAllPost()
         println("Post1: " + postList.size)
+        searchPost()
         binding.imgSend.setOnClickListener {
             val newContent = binding.edtSend.text.toString()
             if (newContent.isNotEmpty()) {
-                createPost(newContent)
+                createPost(token,newContent)
                 println("Post2: " + postList.size)
                 binding.edtSend.text.clear()
                 Toast.makeText(this, "Post Success", Toast.LENGTH_SHORT).show()
@@ -48,7 +50,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun getAllPost() {
+    private fun getAllPost(token:String) {
+        println("token get $token")
         Retrofit.api.getPosts(token)
             .enqueue(object : retrofit2.Callback<List<Feed>> {
                 override fun onResponse(call: Call<List<Feed>>, response: Response<List<Feed>>) {
@@ -71,7 +74,8 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
-    private fun createPost(title: String) {
+    private fun createPost(token:String,title: String) {
+        println("token post $token")
         val postRequest = APIService.PostRequest(title)
         Retrofit.api.createPost(
             token,
@@ -79,7 +83,7 @@ class MainActivity : AppCompatActivity() {
         ).enqueue(object : retrofit2.Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 if (response.isSuccessful) {
-                    getAllPost()
+                    getAllPost(token)
                     Log.d("MainActivity", "Post successfully created")
                 } else {
                     Log.e(
@@ -95,14 +99,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createToken(){
-        Retrofit.api.getToken("application/json;charset=UTF-8",Utils.GRANT_TYPE,
+        Retrofit.api.getToken(Utils.GRANT_TYPE,
             Utils.CLIENT_ID,
             Utils.CLIENT_SECRET,
             Utils.USERNAME,
             Utils.PASSWORD).enqueue(object : retrofit2.Callback<Token> {
             override fun onResponse(call: Call<Token>, response: Response<Token>) {
                 if (response.isSuccessful) {
-                    token = response.body()?.access_token.toString()
+                    token += response.body()?.access_token.toString()
+                    getAllPost(token)
                     Log.d("MainActivity", "Token: ${token?.substring(0, 10)}...${token?.substring(token.length - 10)}")
                 } else {
                     Log.e(
@@ -114,6 +119,31 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<Token>, t: Throwable) {
                 Log.e("MainActivity", "Failed to fetch token: ${t.message}", t)
+            }
+        })
+    }
+
+    private fun searchPost() {
+        binding.searchView.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener,
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    val searchList = postList.filter {
+                        it.feed.body.contains(query, ignoreCase = true)
+                    }
+                    recyclerViewAdapter.updateData(searchList)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText != null) {
+                    val searchList = postList.filter {
+                        it.feed.body.contains(newText, ignoreCase = true)
+                    }
+                    recyclerViewAdapter.updateData(searchList)
+                }
+                return true
             }
         })
     }
