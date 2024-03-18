@@ -1,123 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="15dp">
-
-        <ImageView
-            android:id="@+id/imgComponent"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/baseline_arrow_back_24" />
-
-        <TextView
-            android:id="@+id/txtComponent"
-            android:layout_width="192dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="50dp"
-            android:text="Depo Trading Forum"
-            android:textSize="20dp" />
-
-        <ImageView
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/number" />
-
-        <ImageView
-            android:id="@+id/imgUser"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="11dp"
-            android:src="@drawable/avatar" />
-    </LinearLayout>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView"
-        android:layout_width="338dp"
-        android:layout_height="40dp"
-        app:cardCornerRadius="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="15dp">
+
+            <ImageView
+                android:id="@+id/imgComponent"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/baseline_arrow_back_24" />
+
+            <TextView
+                android:id="@+id/txtComponent"
+                android:layout_width="192dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="50dp"
+                android:text="Depo Trading Forum"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/number" />
+
+            <ImageView
+                android:id="@+id/imgUser"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="11dp"
+                android:src="@drawable/avatar" />
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView"
+            android:layout_width="338dp"
             android:layout_height="40dp"
-            app:iconifiedByDefault="false"
-            app:queryBackground="@android:color/transparent"
-            app:queryHint="Tìm kiếm"/>
+            app:cardCornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-    </com.google.android.material.card.MaterialCardView>
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:iconifiedByDefault="false"
+                app:queryBackground="@android:color/transparent"
+                app:queryHint="Tìm kiếm"/>
+
+        </com.google.android.material.card.MaterialCardView>
 
 
 
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView"
-        android:layout_marginTop="30dp"
-        android:orientation="horizontal">
-        <TextView
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tất Cả"
+                android:layout_marginLeft="20dp"
+                android:textSize="20dp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="290dp"
+                android:src="@drawable/baseline_filter_alt_24" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_margin="5dp"
+            app:layout_constraintTop_toBottomOf="@id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"/>
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tất Cả"
-            android:layout_marginLeft="20dp"
-            android:textSize="20dp"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="290dp"
-            android:src="@drawable/baseline_filter_alt_24" />
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_margin="5dp"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"/>
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        app:layout_constraintTop_toBottomOf="@id/recyclerView"
-        android:layout_margin="30dp"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints">
-        <EditText
-            android:id="@+id/edtSend"
-            android:layout_width="300dp"
             android:layout_height="40dp"
-            android:hint="Send message"
-            android:inputType="text"
-            android:background="@drawable/search_border"
-            android:layout_marginLeft="30sp"/>
-        <ImageView
-            android:id="@+id/imgSend"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/baseline_send_24"
-            android:layout_marginLeft="20dp"/>
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_margin="30dp"
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/recyclerView"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="11dp">
+
+            <EditText
+                android:id="@+id/edtSend"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="30sp"
+                android:background="@drawable/search_border"
+                android:hint="Send message"
+                android:inputType="text" />
+
+            <ImageView
+                android:id="@+id/imgSend"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/baseline_send_24" />
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>
